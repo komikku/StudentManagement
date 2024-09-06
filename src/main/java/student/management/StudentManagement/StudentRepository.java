@@ -1,20 +1,20 @@
 package student.management.StudentManagement;
 
 
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
+import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
 
 @Mapper
 //@Mapperをつけると自動的にMybatisが認識して処理してくれることを認識する
 public interface StudentRepository {
-  @Select("SELECT * FROM student WHERE name = #{name}")
+  @Select("SELECT * FROM students")
   //選択された名前を探してくる　検索処理
-  Student searchByName(String name);
+  List<Student> search();
 
-
+  @Select("SELECT * FROM students_courses")
+  List<StudentCourses> search2();
+/*
   @Insert("INSERT student values(#{name},#{age})")
   void registerStudent(String name, int age);
 
@@ -24,6 +24,8 @@ public interface StudentRepository {
 
   @Delete("DELETE FROM student WHERE name = #{name}")
   void deleteStudent(String name);
+
+ */
 }
 
 

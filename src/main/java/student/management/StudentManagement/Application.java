@@ -1,17 +1,12 @@
 package student.management.StudentManagement;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Primary;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
@@ -21,10 +16,10 @@ public class Application {
   @Autowired
   private StudentRepository repository;
 
-  private String name = "Toshisue Hiroto";
-  private String age = "22";
-  private Map<String, String> studentNameMap = new HashMap<>(
-      Map.of("1", "田中", "2", "斎藤", "3", "佐藤", "4", "広田", "5", "草薙"));
+  //private String name = "Toshisue Hiroto";
+  //private String age = "22";
+  //private Map<String, String> studentNameMap = new HashMap<>(
+  // Map.of("1", "田中", "2", "斎藤", "3", "佐藤", "4", "広田", "5", "草薙"));
   //変数名は絶対に必要だよ
 
   public static void main(String[] args) {
@@ -33,11 +28,10 @@ public class Application {
 
   }
 
-  @GetMapping("/student")
+  @GetMapping("/studentList")
   //この(/hello)が入力されたら↓のものを動かしますよってこと
-  public String getStudent(@RequestParam String name) {
+  public List<Student> getStudentList() {
     //パラメータで検索したものをとってくる
-    Student student = repository.searchByName(name);
 
     //Student student	= new Student();
     //student.setName("Toshisue Hiroto");
@@ -45,11 +39,17 @@ public class Application {
 
     //StringUtilsでも色々合ってapache commonsの方を使うたくさん機能がある　
     //文字列を返す
-    return student.getName() + " " + student.getAge() + "歳";
+    return repository.search();
 
 
   }
 
+  @GetMapping("/studentCourseList")
+  public List<StudentCourses> getStudentCourseList() {
+    return repository.search2();
+  }
+
+/*
   @PostMapping("/student")
   public void registerStudent(String name, int age) {
     repository.registerStudent(name, age);
@@ -61,7 +61,7 @@ public class Application {
   @PatchMapping("/student")
   public void updateStudent(String name, int age) {
     //年齢だけだとすべての名前の人を変えてしまうからnameと年齢をしてする
-    repository.registerStudent(name,age);
+    repository.updateStudent(name,age);
   }
 
   @PostMapping("/studentNumber")
@@ -77,6 +77,6 @@ public class Application {
   public void deleteStudent(String name){
     repository.deleteStudent(name);
   }
-
+*/
 
 }
