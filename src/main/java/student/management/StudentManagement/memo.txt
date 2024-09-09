@@ -1,0 +1,52 @@
+ Intellij上でWebで書いたものを確認する方法
+
+ Intellijでコンソールをだしてcurl に自分が作成して見れるURLをつける
+ curl http://localhost:8080/raisetech
+ 内容の確認
+
+curl -X POST -d "name=Toshisue Hiroto" http://localhost:8080/name
+POSTで情報を与えて
+
+curl http://localhost:8080/name
+結果を受け取ると""これで囲まれた部分が出てくる
+curl http://localhost:8080/name
+
+POSTに情報を二つ与えたい場合は&でつなげる
+curl -X POST -d "name=Toshisue Hiroto&age=22" http://localhost:8080/studentInfo
+curl http://localhost:8080/name
+名前と年齢がでてくる
+
+名前だけ変更したいですってときに↓の名前にいらない&age=50というものをつけたとするとき自動ではじいてくれる
+curl -X POST -d "name=Toshisue&age=50" http://localhost:8080/studentName
+出力すると↓こういう風になる&age=50はないものとして扱われる
+Toshisue 40歳
+
+
+curl -X POST -d "id=6&name1=Kawakami" http://localhost:8080/studentNumber
+mapで作ったものを追加したいときはPostで追加したいときはこういう風にする
+
+ ターミナルでも確認できる。
+
+curl -X POST -d "name=HirotoToshisue&age=40" http://localhost:8080/student
+追加するコマンド
+windows推奨コマンド　
+
+ curl "http://localhost:8080/student?name=EnamiKouji"
+  SQLのデータに入っているもので実行するとその名前の情報がでてくる studentの後には?が必要
+
+
+データを更新
+curl -X PATCH -d "name=AisawaIchirou&age=10" "http://localhost:8080/student"
+curl -x の後は自分が変えたPatchMappingから呼ぶからPATCHにしている
+これを入力すると名前と年齢を入力されたものを追加することができる
+
+curl -X DELETE -d "name=HirotoToshisue" "http://localhost:8080/student"
+名前をしていしものを削除
+DELETEMappingから呼んだ
+
+※自分でエラーを確認する方法
+
+実行の画面にアプリケーション立ち上がりましたの少ししたにerror何々と書いているからそこを何が起きてるかを確認すること
+
+status500はコードやアプリケーション内部のエラー
+status400はサーバーエラー
