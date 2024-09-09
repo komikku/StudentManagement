@@ -1,4 +1,4 @@
-package student.management.StudentManagement;
+package student.management.StudentManagement.data;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -6,6 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Student {
+
   private String id;
   private String name;
   private String kanaName;
@@ -15,7 +16,7 @@ public class Student {
   private int age;
   private String sex;
 
-  }
+}
 
 
 
