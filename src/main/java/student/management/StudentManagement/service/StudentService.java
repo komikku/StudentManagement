@@ -37,7 +37,7 @@ public class StudentService {
     List<StudentCourses> filteredCourses = new ArrayList<>();
 
     for (StudentCourses courses : studentCourses) {
-      if ("Javaコース".equals(courses.getCourse_name())) {
+      if ("Javaコース".equals(courses.getCourseName())) {
         filteredCourses.add(courses);
       }
     }
