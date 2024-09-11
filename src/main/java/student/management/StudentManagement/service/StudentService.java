@@ -1,5 +1,6 @@
 package student.management.StudentManagement.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,10 +19,29 @@ public class StudentService {
   }
 
   public List<Student> searchStudentList() {
-    return repository.search();
+
+    List<Student> students = repository.search();
+    List<Student> filteredStudents = new ArrayList<>();
+
+    for (Student student : students) {
+      if (student.getAge() >= 22) {
+        filteredStudents.add(student);
+      }
+    }
+
+    return filteredStudents;
   }
 
   public List<StudentCourses> searchStudentCourseList() {
-    return repository.search2();
+    List<StudentCourses> studentCourses = repository.search2();
+    List<StudentCourses> filteredCourses = new ArrayList<>();
+
+    for (StudentCourses courses : studentCourses) {
+      if ("Javaコース".equals(courses.getCourseName())) {
+        filteredCourses.add(courses);
+      }
+    }
+
+    return filteredCourses;
   }
 }
