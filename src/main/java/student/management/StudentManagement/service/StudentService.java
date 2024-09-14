@@ -20,28 +20,32 @@ public class StudentService {
 
   public List<Student> searchStudentList() {
 
-    List<Student> students = repository.search();
-    List<Student> filteredStudents = new ArrayList<>();
+//    List<Student> students = repository.search();
+//    List<Student> filteredStudents = new ArrayList<>();
+//
+//    for (Student student : students) {
+//      if (student.getAge() >= 22) {
+//        filteredStudents.add(student);
+//      }
+  //  }
 
-    for (Student student : students) {
-      if (student.getAge() >= 22) {
-        filteredStudents.add(student);
-      }
-    }
-
-    return filteredStudents;
+   // return filteredStudents;
+    return repository.search();
   }
 
   public List<StudentCourses> searchStudentCourseList() {
-    List<StudentCourses> studentCourses = repository.search2();
-    List<StudentCourses> filteredCourses = new ArrayList<>();
+//    List<StudentCourses> studentCourses = repository.search2();
+//    List<StudentCourses> filteredCourses = new ArrayList<>();
+//
+//    for (StudentCourses courses : studentCourses) {
+//      if ("Javaコース".equals(courses.getCourse_name())) {
+//        filteredCourses.add(courses);
+//      }
+ //   }
 
-    for (StudentCourses courses : studentCourses) {
-      if ("Javaコース".equals(courses.getCourse_name())) {
-        filteredCourses.add(courses);
-      }
-    }
-
-    return filteredCourses;
+    //return filteredCourses;
+    return repository.search2();
   }
+
+
 }

@@ -25,8 +25,12 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	//Spring Boot
 	implementation 'org.apache.commons:commons-lang3:3.16.0'
 	//Apache Commons Lang 便利機能、ユーティリティ
+
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf', version: '3.3.3'
+	//Thyme leaf
 
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
