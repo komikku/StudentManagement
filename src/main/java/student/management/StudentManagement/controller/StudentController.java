@@ -27,6 +27,7 @@ public class StudentController {
 
   @Autowired
   public StudentController(StudentService service, StudentConverter converter) {
+    //Autowiredは、GetやSetを書かなくても自動的にやってくれる serviceとconverterを自動的に用意してくれる
     this.service = service;
     this.converter = converter;
   }
@@ -63,6 +64,11 @@ public class StudentController {
       return  "registerStudent";
     }
     //System.out.println(studentDetail.getStudent().getName() + "さんが新規受講生として登録されました。");
+
+    //　①新規受講生情報を登録する処理を実装する。
+    service.registerStudent(studentDetail);
+    // ②コース情報も一緒に登録できるように実装する。コースは単体で良い。
+
     return "redirect:/studentList";
     //studentListに飛ばす
   }

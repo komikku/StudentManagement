@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import student.management.StudentManagement.data.Student;
 import student.management.StudentManagement.data.StudentCourses;
+import student.management.StudentManagement.domain.StudentDetail;
 import student.management.StudentManagement.repository.StudentRepository;
 
 @Service
@@ -45,6 +47,15 @@ public class StudentService {
 
     //return filteredCourses;
     return repository.search2();
+  }
+
+  @Transactional
+  //@Transactionalは、　登録をしたり更新したり削除をしたりするときは、必ず書くこと
+  public void registerStudent(StudentDetail studentDetail){
+    //StudentDetailはどこの型を使うか　studentDetailは型を指定した情報を入れる箱でその名前を書いている
+    repository.registerStudent(studentDetail.getStudent());
+    //TODO:コース情報登録を行う。
+    //型の情報が入ったstudentDetailをgetでstudent情報をとってきてその情報をregisterStudentに渡して保存する
   }
 
 
