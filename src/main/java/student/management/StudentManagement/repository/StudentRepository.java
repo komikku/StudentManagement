@@ -2,7 +2,9 @@ package student.management.StudentManagement.repository;
 
 
 import java.util.List;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 import student.management.StudentManagement.data.Student;
 import student.management.StudentManagement.data.StudentCourses;
@@ -27,6 +29,12 @@ public interface StudentRepository {
   @Select("SELECT * FROM students_courses")
   List<StudentCourses> search2();
 
+  @Insert("INSERT INTO students(name, kana_name, nickname, email, area, age, sex, remark, isDeleted)"
+      + " VALUES(#{name}, #{kanaName}, #{nickname}, #{email}, #{area}, #{age}, #{sex}, #{remark}, false)")
+  //idは、自動採番をしているから書かない　isDeletedは、削除機能だから今回はfalseで良い
+  @Options(useGeneratedKeys = true, keyProperty = "id")
+  void registerStudent(Student student);
+  //今回は、返り値を持たないからvoidで書く
 }
 
 
