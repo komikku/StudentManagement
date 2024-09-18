@@ -10,10 +10,10 @@ public class StudentCourses {
 
 
   private String id;
-  private String student_id;
-  private String course_name;
-  private String course_start_at;
-  private String course_end_at;
+  private String studentId;
+  private String courseName;
+  private String courseStartAt;
+  private String courseEndAt;
 
 
 }
