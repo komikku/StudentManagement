@@ -18,7 +18,7 @@ public class StudentConverter {
 
       List<StudentCourses> convertStudentCourses = new ArrayList<>();
       for (StudentCourses studentCourses : studentsCourses){
-        if(student.getId().equals(studentCourses.getStudent_id())){
+        if(student.getId().equals(studentCourses.getStudentId())){
           convertStudentCourses.add(studentCourses);
         }
       }

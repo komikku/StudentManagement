@@ -11,6 +11,47 @@
     <label for="name">名前:</label>
     <input type="text" id="name" th:field="*{student.name}" required/>
   </div>
+  <div>
+    <label for="kanaName">かな名:</label>
+    <input type="text" id="kanaName" th:field="*{student.kanaName}" required/>
+  </div>
+  <div>
+    <label for="nickname">ニックネーム:</label>
+    <input type="text" id="nickname" th:field="*{student.nickname}" required/>
+  </div>
+  <div>
+    <label for="email">メールアドレス:</label>
+    <input type="text" id="email" th:field="*{student.email}" required/>
+  </div>
+  <div>
+    <label for="area">地域:</label>
+    <input type="text" id="area" th:field="*{student.area}" required/>
+  </div>
+  <div>
+    <label for="age">年齢:</label>
+    <input type="text" id="age" th:field="*{student.age}" />
+  </div>
+  <div>
+    <label for="sex">性別:</label>
+    <input type="text" id="sex" th:field="*{student.sex}" />
+  </div>
+  <div>
+    <label for="remark">備考:</label>
+    <input type="text" id="remark" th:field="*{student.remark}" />
+  </div>
+
+  <div th:each="course, stat : *{studentCourses}">
+    <label for="courseName" th:for="studentCourse.__${stat.index}__.courseName">受講生コース名:</label>
+    <input type="text" id="courseName" th:id="studentCourse.__${stat.index}__.courseName"
+           th:field="*{studentCourses[__${stat.index}__].courseName}"/>
+    <!--
+   thymeleafがもともと持ってる機能 statを使うとListの連続するものの場合自動的に数を数えて番号（０始まり）を付与してくれる　.indexのとこに入る
+   studentsCourse情報を持った０番麺のコースネーム
+   Listとして認識して登録してくれる。
+  -->
+
+  </div>
+
 
   <div>
     <button type="submit">登録</button>
