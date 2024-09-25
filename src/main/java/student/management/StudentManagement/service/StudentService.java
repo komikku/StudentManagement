@@ -31,9 +31,9 @@ public class StudentService {
 //      if (student.getAge() >= 22) {
 //        filteredStudents.add(student);
 //      }
-  //  }
+    //  }
 
-   // return filteredStudents;
+    // return filteredStudents;
     return repository.search();
   }
 
@@ -45,7 +45,7 @@ public class StudentService {
 //      if ("Javaコース".equals(courses.getCourse_name())) {
 //        filteredCourses.add(courses);
 //      }
- //   }
+    //   }
 
     //return filteredCourses;
     return repository.search2();
@@ -53,7 +53,7 @@ public class StudentService {
 
   @Transactional
   //@Transactionalは、　登録をしたり更新したり削除をしたりするときは、必ず書くこと
-  public void registerStudent(StudentDetail studentDetail){
+  public void registerStudent(StudentDetail studentDetail) {
     //StudentDetailはどこの型を使うか　studentDetailは型を指定した情報を入れる箱でその名前を書いている
     repository.registerStudent(studentDetail.getStudent());
     studentDetail.getStudent().getId();
@@ -61,14 +61,12 @@ public class StudentService {
     //TODO:コース情報登録を行う。
     //型の情報が入ったstudentDetailをgetでstudent情報をとってきてその情報をregisterStudentに渡して保存する
 
-    for(StudentCourses studentCourses : studentDetail.getStudentCourses()){
-    studentCourses.setStudentId(studentDetail.getStudent().getId());
-
-    studentCourses.setCourseStartAt(LocalDateTime.now());
-    //StudentCourse.javaに書いた型と一致させるLocalDateだけなら日付だけLocalDateTimeは、日付と時間
-
-    studentCourses.setCourseEndAt(LocalDateTime.now().plusYears(1));
-    //StudentCourseにはcourseNameしか設定されていない他はされてない状態だからここで作ってあげる
+    for (StudentCourses studentCourses : studentDetail.getStudentCourses()) {
+      studentCourses.setStudentId(studentDetail.getStudent().getId());
+      studentCourses.setCourseStartAt(LocalDateTime.now());
+      //StudentCourse.javaに書いた型と一致させるLocalDateだけなら日付だけLocalDateTimeは、日付と時間
+      studentCourses.setCourseEndAt(LocalDateTime.now().plusYears(1));
+      //StudentCourseにはcourseNameしか設定されていない他はされてない状態だからここで作ってあげる
       repository.registerStudentCourses(studentCourses);
     }
 
