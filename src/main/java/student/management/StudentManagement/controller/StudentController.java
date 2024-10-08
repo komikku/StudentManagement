@@ -2,6 +2,7 @@ package student.management.StudentManagement.controller;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.naming.Binding;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +52,11 @@ public class StudentController {
 
   @GetMapping("/newStudent")
   public String newStudent(Model model){
-    model.addAttribute("studentDetail",new StudentDetail());
+    StudentDetail studentDetail = new StudentDetail();
+    //新しく入れれる空っぽの箱を作った
+    studentDetail.setStudentCourses(Arrays.asList(new StudentCourses()));
+    //箱にStudentCoursesをセットして複数コースも選択できるようにArrays.asListにnew StudentCoursesを入れる
+    model.addAttribute("studentDetail",studentDetail);
     //空っぽのオブジェクトを設定して↓のregisterStudentでregisterStudent.htmlを表示
     return "registerStudent";
   }
