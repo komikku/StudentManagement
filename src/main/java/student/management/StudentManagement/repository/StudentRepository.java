@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import student.management.StudentManagement.data.Student;
 import student.management.StudentManagement.data.StudentCourses;
 
@@ -27,7 +28,16 @@ public interface StudentRepository {
   List<Student> search();
 
   @Select("SELECT * FROM students_courses")
-  List<StudentCourses> search2();
+  List<StudentCourses> searchStudentCoursesList();
+
+  @Select("SELECT * FROM students WHERE id = #{id}")
+  //WHERE の後ろに書いたものによって↓もListで書くのかどうするのかを判断する。
+  Student searchStudent (String id);
+  //idは、名前と紐づく情報を一つしか持ってないからListにせず書いた
+
+  @Select("SELECT * FROM students_courses WHERE student_id = #{studentId}")
+  List<StudentCourses> searchStudentCourses(String studentId);
+  //これが複数コース選択してる場合を見たいであればListでとってくる必要がある。
 
   @Insert("INSERT INTO students(name,  kana_name, nickname, email, area, age, sex, remark, isDeleted)"
       //SQL文はデータベースのそのままの名前
@@ -45,6 +55,23 @@ public interface StudentRepository {
   //指定したものと数が合えばserviceで呼べば終わり
   @Options(useGeneratedKeys = true, keyProperty = "id")
   void registerStudentCourses(StudentCourses studentCourses);
+
+
+
+  @Update("UPDATE students SET name = #{name}, kana_name = #{kanaName},nickname = #{nickname},"
+      + "email = #{email},area = #{area},age = #{age},sex = #{sex},remark = #{remark}, isDeleted = #{isDeleted} WHERE id = #{id}")
+  //Javaの書き方の変数名を入れる部分は、snakeケースで書く
+
+  //idは、自動採番をしているから書かない　isDeletedは、削除機能だから今回はfalseで良い
+
+  void updateStudent(Student student);
+  //今回は、返り値を持たないからvoidで書く
+
+  @Update("UPDATE students_courses SET course_name = #{courseName} WHERE id = #{id}")
+        //受講するコースIDと対象の受講生紐づいてるものは変えないからstudent_idは更新で来ちゃダメだから消した
+        //受講時期のcourse_start_atとcourse_end_atも変えちゃだめだから消す
+  void updateStudentCourses(StudentCourses studentCourses);
 }
+
 
 

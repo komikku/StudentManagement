@@ -1,8 +1,6 @@
 package student.management.StudentManagement.service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,6 +34,18 @@ public class StudentService {
     // return filteredStudents;
     return repository.search();
   }
+  public StudentDetail searchStudent(String id){
+    Student student = repository.searchStudent(id);
+    //受講生情報単一の情報をとってきて
+    List<StudentCourses>studentCourses=repository.searchStudentCourses(student.getId());
+    //受講生情報に紐づく複数持っているであろうコース情報を取得しに行く
+    StudentDetail studentDetail = new StudentDetail();
+    //取れてきたものをそれぞれstudentDetailに設定して
+    studentDetail.setStudent(student);
+    studentDetail.setStudentCourses(studentCourses);
+    return studentDetail;
+    //返す
+  }
 
   public List<StudentCourses> searchStudentCourseList() {
 //    List<StudentCourses> studentCourses = repository.search2();
@@ -48,7 +58,7 @@ public class StudentService {
     //   }
 
     //return filteredCourses;
-    return repository.search2();
+    return repository.searchStudentCoursesList();
   }
 
   @Transactional
@@ -56,7 +66,6 @@ public class StudentService {
   public void registerStudent(StudentDetail studentDetail) {
     //StudentDetailはどこの型を使うか　studentDetailは型を指定した情報を入れる箱でその名前を書いている
     repository.registerStudent(studentDetail.getStudent());
-    studentDetail.getStudent().getId();
 
     //TODO:コース情報登録を行う。
     //型の情報が入ったstudentDetailをgetでstudent情報をとってきてその情報をregisterStudentに渡して保存する
@@ -73,4 +82,12 @@ public class StudentService {
   }
 
 
+  @Transactional
+  //@Transactionalは、　登録をしたり更新したり削除をしたりするときは、必ず書くこと
+  public void updateStudent(StudentDetail studentDetail) {
+    repository.updateStudent(studentDetail.getStudent());
+    for (StudentCourses studentCourses : studentDetail.getStudentCourses()) {
+      repository.updateStudentCourses(studentCourses);
+    }
+  }
 }

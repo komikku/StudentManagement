@@ -23,16 +23,23 @@
   <tbody>
   <tr th:each="studentDetail : ${studentList}">
     <td th:text="${studentDetail.student.id}">1</td>
-    <td th:text="${studentDetail.student.name}">山田太郎</td>
-    <td th:text="${studentDetail.student.kanaName}">ヤマダタロウ</td>
-    <td th:text="${studentDetail.student.nickname}">たろちゃん</td>
-    <td th:text="${studentDetail.student.email}">taro.yamada@example.com</td>
-    <td th:text="${studentDetail.student.area}">東京</td>
-    <td th:text="${studentDetail.student.age}">20</td>
-    <td th:text="${studentDetail.student.sex}">男性</td>
-    <td th:text="${studentDetail.student.remark}">特になし</td>
-  </tr>
-  </tbody>
+    <td>
+      <a href="studentList" th:href="@{/student/{id}(id=${studentDetail.student.id})}"
+         th:text="${studentDetail.student.name}">山田太郎</a>
+      <!--
+      リンクでボタンのようにする作り方 <a></a> aタグというのを使う　
+      idの中身は、studentのid 　idの中身は、studentDetailのstudent.idだよってのを指定してあげる
+      -->
+   </td>
+   <td th:text="${studentDetail.student.kanaName}">ヤマダタロウ</td>
+   <td th:text="${studentDetail.student.nickname}">たろちゃん</td>
+   <td th:text="${studentDetail.student.email}">taro.yamada@example.com</td>
+   <td th:text="${studentDetail.student.area}">東京</td>
+   <td th:text="${studentDetail.student.age}">20</td>
+   <td th:text="${studentDetail.student.sex}">男性</td>
+   <td th:text="${studentDetail.student.remark}">特になし</td>
+ </tr>
+ </tbody>
 </table>
 </body>
 </html>
