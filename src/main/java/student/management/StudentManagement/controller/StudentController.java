@@ -33,6 +33,8 @@ public class StudentController {
     //Autowiredは、GetやSetを書かなくても自動的にやってくれる serviceとconverterを自動的に用意してくれる
     this.service = service;
     this.converter = converter;
+
+
   }
 
   @GetMapping("/studentList")
@@ -87,25 +89,24 @@ public class StudentController {
 //  }
 
 
-@PostMapping("/registerStudent")
-public String registerStudent(@ModelAttribute StudentDetail studentDetail, BindingResult result) {
-  //registerStudent.htmlの紐づけを@ModelAttributeをつけることによりやってくれる
-  //thymeleafを使うときは、確実に行うもの　入力チェックしたその結果をBindinResultに格納して元の画面に返す
-  if (result.hasErrors()) {
-    return "registerStudent";
+  @PostMapping("/registerStudent")
+  public String registerStudent(@ModelAttribute StudentDetail studentDetail, BindingResult result) {
+    //registerStudent.htmlの紐づけを@ModelAttributeをつけることによりやってくれる
+    //thymeleafを使うときは、確実に行うもの　入力チェックしたその結果をBindinResultに格納して元の画面に返す
+    if (result.hasErrors()) {
+      return "registerStudent";
+    }
+    //System.out.println(studentDetail.getStudent().getName() + "さんが新規受講生として登録されました。");
+
+    //　①新規受講生情報を登録する処理を実装する。
+    service.registerStudent(studentDetail);
+    // ②コース情報も一緒に登録できるように実装する。コースは単体で良い。
+
+    return "redirect:/studentList";
+    //studentListに飛ばす
+
   }
-  //System.out.println(studentDetail.getStudent().getName() + "さんが新規受講生として登録されました。");
 
-  //　①新規受講生情報を登録する処理を実装する。
-  service.registerStudent(studentDetail);
-  // ②コース情報も一緒に登録できるように実装する。コースは単体で良い。
-
-  return "redirect:/studentList";
-  //studentListに飛ばす
-
-
-
-}
   @PostMapping("/updateStudent")
   public String updateStudent(@ModelAttribute StudentDetail studentDetail, BindingResult result) {
     if (result.hasErrors()) {

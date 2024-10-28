@@ -25,6 +25,7 @@ public interface StudentRepository {
    */
 
   @Select("SELECT * FROM students")
+  //削除フラグが立っていないものだけを取ってくる。
   List<Student> search();
 
   @Select("SELECT * FROM students_courses")
@@ -39,7 +40,7 @@ public interface StudentRepository {
   List<StudentCourses> searchStudentCourses(String studentId);
   //これが複数コース選択してる場合を見たいであればListでとってくる必要がある。
 
-  @Insert("INSERT INTO students(name,  kana_name, nickname, email, area, age, sex, remark, isDeleted)"
+  @Insert("INSERT INTO students(name,  kana_name, nickname, email, area, age, sex, remark, is_deleted)"
       //SQL文はデータベースのそのままの名前
       + " VALUES(#{name}, #{kanaName}, #{nickname}, #{email}, #{area}, #{age}, #{sex}, #{remark}, false)")
       //Javaの書き方の変数名を入れる部分は、snakeケースで書く
@@ -59,7 +60,7 @@ public interface StudentRepository {
 
 
   @Update("UPDATE students SET name = #{name}, kana_name = #{kanaName},nickname = #{nickname},"
-      + "email = #{email},area = #{area},age = #{age},sex = #{sex},remark = #{remark}, isDeleted = #{isDeleted} WHERE id = #{id}")
+      + "email = #{email},area = #{area},age = #{age},sex = #{sex},remark = #{remark}, is_deleted = #{isDeleted} WHERE id = #{id}")
   //Javaの書き方の変数名を入れる部分は、snakeケースで書く
 
   //idは、自動採番をしているから書かない　isDeletedは、削除機能だから今回はfalseで良い
