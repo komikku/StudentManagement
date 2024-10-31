@@ -11,11 +11,10 @@ import student.management.StudentManagement.data.Student;
 import student.management.StudentManagement.data.StudentCourses;
 
 /**
- * 受講生情報を扱うリポジトリ 全件検索や単一条件での検索、コース情報の検索が行えるクラスです。
+ * 受講生テーブルと受講生コース情報テーブルと紐づくRepositoryです。
  */
 
 @Mapper
-
 public interface StudentRepository {
 
   /**
@@ -23,19 +22,35 @@ public interface StudentRepository {
    *
    * @return 全件検索した受講生情報の一覧
    */
-
-  @Select("SELECT * FROM students")
+  @Select("SELECT * FROM students WHERE is_deleted<>1")
   //削除フラグが立っていないものだけを取ってくる。
   List<Student> search();
 
+  /**
+   * 受講生のコース情報の全件検索を行います。
+   *
+   * @ return 受講生のコース情報(全件)
+   */
   @Select("SELECT * FROM students_courses")
   List<StudentCourses> searchStudentCoursesList();
 
+  /**
+   * 受講生の検索を行います。
+   *
+   * @param id 受講生ID
+   * @return 受講生
+   */
   @Select("SELECT * FROM students WHERE id = #{id}")
   //WHERE の後ろに書いたものによって↓もListで書くのかどうするのかを判断する。
   Student searchStudent (String id);
   //idは、名前と紐づく情報を一つしか持ってないからListにせず書いた
 
+  /**
+   * 受講生IDに紐づく受講生コース情報を検索します。
+   *
+   * @param studentId  受講生ID
+   * @return 受講生IDに紐づく受講生コース情報
+   */
   @Select("SELECT * FROM students_courses WHERE student_id = #{studentId}")
   List<StudentCourses> searchStudentCourses(String studentId);
   //これが複数コース選択してる場合を見たいであればListでとってくる必要がある。
