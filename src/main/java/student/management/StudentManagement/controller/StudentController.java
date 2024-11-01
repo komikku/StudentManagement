@@ -16,7 +16,7 @@ import student.management.StudentManagement.domain.StudentDetail;
 import student.management.StudentManagement.service.StudentService;
 
 /**
- *  受講生の検索や登録、更新などを行うREST APIとして実行されるControllerです。
+ *受講生の検索や登録、更新などを行うREST APIとして実行されるControllerです。
  */
 
 @RestController

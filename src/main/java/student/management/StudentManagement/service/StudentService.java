@@ -33,7 +33,7 @@ public class StudentService {
    * 受講生の一覧検索です。
    * 全件検索を行うので、条件指定は行いません。
    *
-   * @return 受講生一覧(全件)
+   *@return 受講生一覧(全件)
    */
   public List<StudentDetail> searchStudentList() {
     List<Student> studentList = repository.search();

@@ -29,7 +29,7 @@ public interface StudentRepository {
   /**
    * 受講生のコース情報の全件検索を行います。
    *
-   * @ return 受講生のコース情報(全件)
+   *@return 受講生のコース情報(全件)
    */
   @Select("SELECT * FROM students_courses")
   List<StudentCourses> searchStudentCoursesList();
