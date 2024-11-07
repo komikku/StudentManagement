@@ -52,8 +52,14 @@ public interface StudentRepository {
    * @return 受講生IDに紐づく受講生コース情報
    */
   @Select("SELECT * FROM students_courses WHERE student_id = #{studentId}")
-  List<StudentCourses> searchStudentCourses(String studentId);
+  List<StudentCourses> searchStudentCourse(String studentId);
   //これが複数コース選択してる場合を見たいであればListでとってくる必要がある。
+
+  /**
+   * 受講生を新規登録　IDに関しては自動裁判を行う
+   *
+   * @param student 受講生
+   */
 
   @Insert("INSERT INTO students(name,  kana_name, nickname, email, area, age, sex, remark, is_deleted)"
       //SQL文はデータベースのそのままの名前
@@ -65,14 +71,24 @@ public interface StudentRepository {
   void registerStudent(Student student);
   //今回は、返り値を持たないからvoidで書く
 
+  /**
+   * 受講生を新規登録　IDに関しては自動裁判を行う
+   *
+   * @param studentsCourse 受講生コース情報
+   */
+
   @Insert("INSERT INTO students_courses(student_id, course_name, course_start_at, course_end_at) "
       + "VALUES(#{studentId}, #{courseName}, #{courseStartAt}, #{courseEndAt})")
   //INSERTのstudents_coursesの()の中身は、SQLで作った情報を正しく入れる
   //指定したものと数が合えばserviceで呼べば終わり
   @Options(useGeneratedKeys = true, keyProperty = "id")
-  void registerStudentCourses(StudentCourses studentCourses);
+  void registerStudentCourse(StudentCourses studentsCourse);
 
-
+  /**
+   * 受講生を更新します。
+   *
+   * @param student 受講生
+   */
 
   @Update("UPDATE students SET name = #{name}, kana_name = #{kanaName},nickname = #{nickname},"
       + "email = #{email},area = #{area},age = #{age},sex = #{sex},remark = #{remark}, is_deleted = #{isDeleted} WHERE id = #{id}")
@@ -83,10 +99,15 @@ public interface StudentRepository {
   void updateStudent(Student student);
   //今回は、返り値を持たないからvoidで書く
 
+  /**
+   * 受講生コース情報のコース名を更新
+   *
+   * @param studentCourse　受講生コース情報
+   */
   @Update("UPDATE students_courses SET course_name = #{courseName} WHERE id = #{id}")
         //受講するコースIDと対象の受講生紐づいてるものは変えないからstudent_idは更新で来ちゃダメだから消した
         //受講時期のcourse_start_atとcourse_end_atも変えちゃだめだから消す
-  void updateStudentCourses(StudentCourses studentCourses);
+  void updateStudentCourse(StudentCourses studentCourse);
 }
 
 
