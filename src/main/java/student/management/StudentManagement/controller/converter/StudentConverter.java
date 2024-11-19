@@ -22,14 +22,16 @@ public class StudentConverter {
    */
   public List<StudentDetail> convertStudentDetails(List<Student> studentList,
       List<StudentCourses> studentCoursList) {
+
+
     List<StudentDetail> studentDetails = new ArrayList<>();
-    for(Student student : studentList){
+    for (Student student : studentList) {
       StudentDetail studentDetail = new StudentDetail();
       studentDetail.setStudent(student);
 
       List<StudentCourses> convertStudentCourseList = new ArrayList<>();
-      for (StudentCourses studentCourses : studentCoursList){
-        if(student.getId().equals(studentCourses.getStudentId())){
+      for (StudentCourses studentCourses : studentCoursList) {
+        if (student.getId().equals(studentCourses.getStudentId())) {
           convertStudentCourseList.add(studentCourses);
         }
       }
@@ -37,6 +39,7 @@ public class StudentConverter {
       studentDetails.add(studentDetail);
     }
     return studentDetails;
+
   }
 
 }

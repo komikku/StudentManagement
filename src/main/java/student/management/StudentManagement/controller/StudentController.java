@@ -1,9 +1,11 @@
 package student.management.StudentManagement.controller;
 
 
+import jakarta.validation.constraints.Size;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,7 +18,7 @@ import student.management.StudentManagement.service.StudentService;
 /**
  *受講生の検索や登録、更新などを行うREST APIとして実行されるControllerです。
  */
-
+@Validated //※これを必ず忘れずに入力制限を書くことができる
 @RestController
 public class StudentController {
 
@@ -52,6 +54,7 @@ public class StudentController {
   @GetMapping("/student/{id}")
   //()のstudentは、studetHTMLのth:hrefの@指定したものと一致にしないといけない
   public StudentDetail getStudent(@PathVariable String id) {
+    //@Size(min = 1, max = 3)は、idが1から3の間のサイズで入力するという意味
     return service.searchStudent(id);
   }
 
