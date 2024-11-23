@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="student.management.StudentManagement.repository.StudentRepository">
+
+  <!-- 受講生の全件検索 -->
+  <select id="search" resultType="student.management.StudentManagement.data.Student">
+    SELECT * FROM students WHERE is_deleted=false
+  </select>
+
+  <!-- 受講生のコース情報の全件検索-->
+  <select id="searchStudentCoursesList" resultType="student.management.StudentManagement.data.StudentCourses">
+    SELECT * FROM students_courses
+  </select>
+
+  <!-- 受講生IDに紐づく受講生コース情報を検索 -->
+  <select id="searchStudent" resultType="student.management.StudentManagement.data.Student">
+    SELECT * FROM students WHERE id = #{id}
+  </select>
+
+  <!-- 受講生IDに紐づく受講生コース情報を検索します。 -->
+  <select id="searchStudentCourse" resultType="student.management.StudentManagement.data.StudentCourses">
+    SELECT * FROM students_courses WHERE student_id = #{studentId}
+  </select>
+
+  <!-- 受講生を新規登録　IDに関しては自動裁判を行う-->
+  <insert id="registerStudent" parameterType="student.management.StudentManagement.data.Student" statementType="PREPARED" useGeneratedKeys="true" keyProperty="id">
+    INSERT INTO students(name,  kana_name, nickname, email, area, age, sex, remark, is_deleted)
+    VALUES(#{name}, #{kanaName}, #{nickname}, #{email}, #{area}, #{age}, #{sex}, #{remark}, false)
+  </insert>
+
+  <!-- 受講生コース情報を新規登録　IDに関しては自動裁判を行う-->
+  <insert id="registerStudentCourse" parameterType="student.management.StudentManagement.data.StudentCourses" statementType="PREPARED" useGeneratedKeys="true" keyProperty="id">
+    INSERT INTO students_courses(student_id, course_name, course_start_at, course_end_at)
+    VALUES(#{studentId}, #{courseName}, #{courseStartAt}, #{courseEndAt})
+  </insert>
+
+  <!-- 受講生を更新-->
+  <update id="updateStudent" parameterType="student.management.StudentManagement.data.Student" statementType="PREPARED">
+    UPDATE students
+    SET name=#{name},
+    kana_name = #{kanaName},
+    nickname = #{nickname},
+    email = #{email},
+    area = #{area},
+    age = #{age},
+    sex = #{sex},
+    remark = #{remark},
+    is_deleted = #{isDeleted}
+    WHERE id = #{id}
+  </update>
+
+  <!-- 受講生コース情報のコース名を更新-->
+  <update id="updateStudentCourse" parameterType="student.management.StudentManagement.data.StudentCourses" statementType="PREPARED">
+    UPDATE students_courses
+    SET course_name = #{courseName}
+    WHERE id = #{id}
+  </update>
+</mapper>
